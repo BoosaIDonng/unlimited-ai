@@ -23,9 +23,3 @@ wrangler secret put NVIDIA_API_KEY
 wrangler deploy
 ```
 
-Open the Worker URL, it will prompt for password.
-
-## Notes
-- History & custom prompt are stored in browser localStorage only (optional).
-- 😈 uses Worker built-in prompts; 😇 allows web custom prompt.
-- Donate button 💚 opens QR modal.
