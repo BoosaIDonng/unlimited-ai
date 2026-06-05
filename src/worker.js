@@ -123,16 +123,34 @@ async function handleChat(request, env) {
   });
 }
 
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+
     if (request.method === "GET" && url.pathname === "/config.js") {
-      return resp(clientConfigJs(), "text/javascript; charset=utf-8");
+      return resp(clientConfigJs(), "text/javascript; charset=utf-8", 200, CORS_HEADERS);
     }
 
     if (request.method === "POST" && url.pathname === "/api/chat") {
-      return handleChat(request, env);
+      const response = await handleChat(request, env);
+      const newHeaders = new Headers(response.headers);
+      for (const [key, value] of Object.entries(CORS_HEADERS)) {
+        newHeaders.set(key, value);
+      }
+      return new Response(response.body, {
+        status: response.status,
+        headers: newHeaders,
+      });
     }
 
     if (env.ASSETS && typeof env.ASSETS.fetch === "function") {
