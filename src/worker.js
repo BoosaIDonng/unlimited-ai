@@ -100,6 +100,9 @@ async function handleChat(request, env) {
       model,
       stream: true,
       stream_options: { include_usage: true },
+      // gpt-oss-20b defaults to heavy reasoning; visible content waits ~5-8s.
+      // low keeps first token under ~2s which feels responsive in chat.
+      reasoning_effort: "low",
       messages: upstreamMessages
     })
   });
