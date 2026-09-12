@@ -7,13 +7,12 @@
 export const CHAT_PASSWORD = "123456";
 
 // 默认模型
-export const DEFAULT_MODEL = "deepseek-ai/deepseek-v4-pro";
+export const DEFAULT_MODEL = "openai/gpt-oss-20b";
 
 // 模型列表（label 是下拉显示；persona=1 使用 PROMPT_1；persona=2 使用 PROMPT_2）
+// deepseek-v4-pro / glm-5.1 / gpt-oss-120b 已在 NVIDIA API 全部 EOL（410），只保留 gpt-oss-20b
 export const MODELS = [
-  { id: "deepseek-ai/deepseek-v4-pro", label: "deepseek-v4-pro", persona: 1 },
-  { id: "z-ai/glm-5.1", label: "glm-5.1", persona: 2 },
-  { id: "openai/gpt-oss-120b", label: "gpt-oss-120b", persona: 3 },
+  { id: "openai/gpt-oss-20b", label: "gpt-oss-20b", persona: 3 },
 ];
 
 // 内置人物模板 #1（deepseek/glm）——不会下发到网页
